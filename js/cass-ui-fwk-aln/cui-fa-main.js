@@ -5,6 +5,9 @@
 //**************************************************************************************************
 // Constants
 
+var framework1Id;
+var framework2Id;
+
 //**************************************************************************************************
 // Variables
 
@@ -21,5 +24,5 @@
 //**************************************************************************************************
 
 function loadPageContents() {
-    showPageError("OK...AT loadPageContents..need to send initAlign message");
+    showPageError("FW1ID: " + framework1Id + "<br>" + "FW2ID: " + framework2Id);
 }

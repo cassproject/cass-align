@@ -3,11 +3,26 @@
 //**************************************************************************************************
 
 //**************************************************************************************************
+// Constants
+
+const INIT_ALIGN_MESSAGE = "initAlign";
+const WAITING_MESSAGE = "waiting";
+
+const INIT_IDENTITY_ACTION = "initIdentity";
+const SET_FWK_ALIGN_PARMS_ACTION = "setFwkAlignParams";
+
+//**************************************************************************************************
 // Action Executions
 //**************************************************************************************************
 
 function performInitIdentityAction(data) {
     setupIdentity(data.serverParm,data.nameParm,data.pemParm);
+    sendInitAlignMessage();
+}
+
+function initializeFrameworkAlignmentParameters(data) {
+    framework1Id = data.fw1Id;
+    framework2Id = data.fw2Id;
     loadPageContents();
 }
 
@@ -17,9 +32,17 @@ function performInitIdentityAction(data) {
 
 function sendWaitingMessage() {
     var message = {
-        message: "waiting"
+        message: WAITING_MESSAGE
     };
-    debugMessage("Sending 'waiting' message:" + JSON.stringify(message));
+    debugMessage("Sending '" + WAITING_MESSAGE + "' message:" + JSON.stringify(message));
+    parent.postMessage(message, queryParams.origin);
+}
+
+function sendInitAlignMessage() {
+    var message = {
+        message: INIT_ALIGN_MESSAGE
+    };
+    debugMessage("Sending '" + INIT_ALIGN_MESSAGE + "' message:" + JSON.stringify(message));
     parent.postMessage(message, queryParams.origin);
 }
 
@@ -30,8 +53,11 @@ function sendWaitingMessage() {
 function performAction(action,data) {
     debugMessage("iframe-comms: performAction: " + action);
     switch (action) {
-        case "initIdentity":
+        case INIT_IDENTITY_ACTION:
             performInitIdentityAction(data);
+            break;
+        case SET_FWK_ALIGN_PARMS_ACTION:
+            initializeFrameworkAlignmentParameters(data);
             break;
         default:
             showPageError("Unknown message action: " + action);
@@ -72,7 +98,7 @@ else {
 //**************************************************************************************************
 $(document).ready(function () {
     if (queryParams.user == "wait") {
-        debugMessage("Recieved user='wait' parameter...");
+        debugMessage("Received user='wait' parameter...");
         showPageAsBusy("Initializing Framework Alignment...");
         sendWaitingMessage();
     }
