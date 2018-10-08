@@ -1,0 +1,121 @@
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CASS Framework Explorer</title>
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <link rel="stylesheet" href="css/foundation.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/cass-ui-fwk-aln.css">
+</head>
+
+<body>
+
+    <div class="sticky" data-sticky data-margin-top="0">
+        <!-- FRAMEWORK MENUS -->
+        <div id="section-sub-menu">
+            <!-- FRAMEWORK EXPLORER MENU -->
+            <div id="frameworkExplorerMenu" style="display: none">
+                <div class="grid-container full">
+                    <div class="grid-x grid-padding-x grid-padding-y">
+                        <div class="cell medium-10">
+                            <h2 id="frameworkExpHeader" onclick="goToDisplayRoot()"><i class="fa fa-sitemap" aria-hidden="true"></i> <span id="frameworkExplorerName"></span></h2>
+                        </div>
+                        <div class="cell medium-2">
+                            <div id="page-tools">
+                                <ul id="fwkExpOpenFwkOnlyToolset" class="dropdown menu" data-dropdown-menu>
+                                    <li><a title="Open Framework" onclick="openFrameworkOpenModal();"><i class="fa fa-folder-open-o" aria-hidden="true"></i> Open Framework</a></li>
+                                </ul>
+                                <ul id="fwkExpFullToolset" class="dropdown menu" data-dropdown-menu>
+                                    <li>
+                                        <a href="#">Actions</a>
+                                        <ul class="menu vertical">
+                                            <li><a title="Open Framework" onclick="openFrameworkOpenModal();"><i class="fa fa-folder-open-o" aria-hidden="true"></i> Open</a></li>
+                                            <li><a title="Align Frameworks" onclick="openAlignmentSetupModal();"><i class="fa fa-align-center" aria-hidden="true"></i> Align</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">Tools</a>
+                                        <ul class="menu vertical">
+                                            <li id="fwkExpShareTool"><a title="Share Framework" onclick="openShareFrameworkModal();"><i class="fa fa-share-alt" aria-hidden="true"></i> Share</a></li>
+                                            <li id="fwkExpPublishTool"><a title="Publish Framework" onclick="openPublishFrameworkModal();"><i class="fa fa-share" aria-hidden="true"></i> Publish</a></li>
+                                            <li><a title="Print Framework"><i class="fa fa-print" aria-hidden="true"></i> Print</a></li>
+                                            <li><a title="Export Framework"><i class="fa fa-download" aria-hidden="true"></i> Export</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-padding-x">
+                        <div class="cell medium-8">
+                            <button id="showGraphViewBtn" class="secondary button" onclick="showGraphViewMainContentsScreen();clearFrameworkContentsSearchBar();">Graph View</button>
+                            <button id="showListViewBtn" class="secondary button" onclick="showListViewMainContentsScreen();clearFrameworkContentsSearchBar();">List View</button>
+                        </div>
+                        <div class="cell medium-4">
+                            <div id="frameworkContentsSearchContainer" class="input-group">
+                                <input onkeypress="checkForFrameworkContentsSearchbarEnter(event)" id="frameworkContentsSearchInput" class="input-group-field" type="text" placeholder="Search this framework">
+                                <div class="input-group-button">
+                                    <button class="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--END sticky menu container -->
+
+    <!--BUSY-->
+    <div id="cassUiMainBusyContainer" style="display:none">
+        <div class="grid-container">
+            <div class="grid-x grid-padding-x grid-padding-y">
+                <div class="cell medium-12 text-center">
+                    <h5 id="cassUiMainBusyText"></h5>
+                    <img id="loadingAnimation" src="img/CASS-loading-128px.gif" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--END BUSY-->
+
+    <!--ERROR-->
+    <div id="cassUiMainErrorContainer" style="display:none">
+        <div class="grid-container">
+            <div class="grid-x grid-padding-x grid-padding-y">
+                <div class="cell medium-12 text-center cassUiError">
+                    <i class="fa fa-exclamation-triangle"></i>
+                    <h5 id="cassUiMainErrorText"></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--END ERROR-->
+
+    <!--WARNINGS-->
+    <!--END WARNINGS-->
+
+    <!--CONTENTS-->
+    <!--END CONTENTS-->
+
+    <!-- MODAL WINDOWS -->
+    <!-- END MODAL WINDOWS -->
+
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/vendor/jquery-ui.min.js"></script>
+    <script src="js/vendor/foundation.js"></script>
+    <script src="js/vendor/d3.js"></script>
+    <script src="js/cass/cass.js"></script>
+    <script src="js/cass-ui-fwk-aln/cui-fa-ui-util.js"></script>
+    <script src="js/cass-ui-fwk-aln/cui-fa-tech-util.js"></script>
+    <script src="js/cass-ui-fwk-aln/cui-fa-session-util.js"></script>
+    <script src="js/cass-ui-fwk-aln/cui-fa-d3-util.js"></script>
+    <script src="js/cass-ui-fwk-aln/cui-fa-comms.js"></script>
+    <script src="js/cass-ui-fwk-aln/cui-fa-main.js"></script>
+
+</body>
+</html>
