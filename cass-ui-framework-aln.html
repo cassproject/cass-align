@@ -17,52 +17,50 @@
     <div class="sticky" data-sticky data-margin-top="0">
         <!-- FRAMEWORK MENUS -->
         <div id="section-sub-menu">
-            <!-- FRAMEWORK EXPLORER MENU -->
-            <div id="frameworkExplorerMenu" style="display: none">
-                <div class="grid-container full">
-                    <div class="grid-x grid-padding-x grid-padding-y">
-                        <div class="cell medium-10">
-                            <h2 id="frameworkExpHeader" onclick="goToDisplayRoot()"><i class="fa fa-sitemap" aria-hidden="true"></i> <span id="frameworkExplorerName"></span></h2>
-                        </div>
-                        <div class="cell medium-2">
-                            <div id="page-tools">
-                                <ul id="fwkExpOpenFwkOnlyToolset" class="dropdown menu" data-dropdown-menu>
-                                    <li><a title="Open Framework" onclick="openFrameworkOpenModal();"><i class="fa fa-folder-open-o" aria-hidden="true"></i> Open Framework</a></li>
-                                </ul>
-                                <ul id="fwkExpFullToolset" class="dropdown menu" data-dropdown-menu>
-                                    <li>
-                                        <a href="#">Actions</a>
-                                        <ul class="menu vertical">
-                                            <li><a title="Open Framework" onclick="openFrameworkOpenModal();"><i class="fa fa-folder-open-o" aria-hidden="true"></i> Open</a></li>
-                                            <li><a title="Align Frameworks" onclick="openAlignmentSetupModal();"><i class="fa fa-align-center" aria-hidden="true"></i> Align</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#">Tools</a>
-                                        <ul class="menu vertical">
-                                            <li id="fwkExpShareTool"><a title="Share Framework" onclick="openShareFrameworkModal();"><i class="fa fa-share-alt" aria-hidden="true"></i> Share</a></li>
-                                            <li id="fwkExpPublishTool"><a title="Publish Framework" onclick="openPublishFrameworkModal();"><i class="fa fa-share" aria-hidden="true"></i> Publish</a></li>
-                                            <li><a title="Print Framework"><i class="fa fa-print" aria-hidden="true"></i> Print</a></li>
-                                            <li><a title="Export Framework"><i class="fa fa-download" aria-hidden="true"></i> Export</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
+            <!-- FRAMEWORK ALIGNMENT MENU -->
+            <div class="grid-container full">
+                <div class="grid-x grid-padding-x grid-padding-y">
+                    <div class="cell medium-10">
+                        <h2 class="text-left">
+                            <i class="fa fa-sitemap" aria-hidden="true"></i>&nbsp;
+                            <span id="frameworkHeaderAlignmentName1"></span>
+                            <span class="subheader">
+                                <i class="fa fa-exchange" aria-hidden="true"></i>
+                                <span id="frameworkHeaderAlignmentName2"></span>
+                            </span>
+                        </h2>
+                    </div>
+                    <div class="cell medium-2">
+                        <div id="page-tools"  style="display:none">
+                            <ul id="fwkAlnOpenFwkOnlyToolset" class="dropdown menu" data-dropdown-menu>
+                                <li><a title="Align Frameworks" onclick="openFrameworkAlignSetupModal();"><i class="fa fa-align-center" aria-hidden="true"></i> Align Frameworks</a></li>
+                            </ul>
+                            <ul id="fwkAlnFullToolset" class="dropdown menu" data-dropdown-menu>
+                                <li>
+                                    <a href="#">Actions</a>
+                                    <ul class="menu vertical">
+                                        <li><a title="Align Frameworks" onclick="openAlignmentSetupModal();"><i class="fa fa-align-center" aria-hidden="true"></i> Align</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">Tools</a>
+                                    <ul class="menu vertical">
+                                        <li><a title="Auto Align Frameworks" onclick="openFrameworkAutoAlignmentModal();"><i class="fa fa-magic" aria-hidden="true"></i> Auto Align</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="grid-x grid-padding-x">
-                        <div class="cell medium-8">
-                            <button id="showGraphViewBtn" class="secondary button" onclick="showGraphViewMainContentsScreen();clearFrameworkContentsSearchBar();">Graph View</button>
-                            <button id="showListViewBtn" class="secondary button" onclick="showListViewMainContentsScreen();clearFrameworkContentsSearchBar();">List View</button>
-                        </div>
-                        <div class="cell medium-4">
-                            <div id="frameworkContentsSearchContainer" class="input-group">
-                                <input onkeypress="checkForFrameworkContentsSearchbarEnter(event)" id="frameworkContentsSearchInput" class="input-group-field" type="text" placeholder="Search this framework">
-                                <div class="input-group-button">
-                                    <button class="button"><i class="fa fa-search" aria-hidden="true"></i></button>
-                                </div>
-                            </div>
-                        </div>
+                </div>
+            </div>
+            <!--Alignment tool bar-->
+            <div class="grid-container full">
+                <div class="grid-x grid-padding-x">
+                    <div class="cell medium-6">
+                        <!--<button id="showAlmVisBtn" class="secondary button" onclick="buildAlignmentVisualizationCircleGraphFromClick();">Visualize Alignments</button>                        -->
+                        <!--<button id="showAlmEditBtn" class="secondary button" onclick="showScreen('alignment-edit-screen');">Edit Alignments</button>-->
+                        <button id="showAlmVisBtn" class="secondary button" onclick="alert('TODO onclick VISUALIZE');">Visualize Alignments</button>
+                        <button id="showAlmEditBtn" class="secondary button" onclick="alert('TODO onclick EDIT');">Edit Alignments</button>
                     </div>
                 </div>
             </div>
@@ -100,6 +98,168 @@
     <!--END WARNINGS-->
 
     <!--CONTENTS-->
+    <div id="cassUiMainContentsContainer" style="display:none">
+        <!-- ALIGNMENT VISUALIZE SCREEN -->
+        <div id="alignment-visualize-screen" class="screen" style="display: none;">
+            <div id="almVisCgDividedContainer" class="grid-container full"  style="display: none;">
+                <div class="grid-x grid-margin-x grid-padding-x">
+                    <div id="almVisCgDividedSidebar" class="cell medium-4 large-3 medium-cell-block-y">
+                        <h3>
+                            <div class="grid-x">
+                                <div class="cell medium-10">Separated Frameworks</div>
+                                <div class="cell medium-2 rightText">
+                                    <a title="Merge Frameworks" onclick="mergeAlignmentVisualizationCircleGraphs();"><img src="img/mergeAlm2.png" class="almToolIcon"/></a>
+                                </div>
+                            </div>
+                        </h3>
+                        <div id="almVisCgDividedSidebarAlmListContainer">
+                            <div id="almVisCgDividedSidebarNoAlmContainer" class="lead">
+                                <p><i class="fa fa-exclamation-triangle"></i> There are no alignments between these two frameworks.</p>
+                            </div>
+                            <div id="almVisCgDividedSidebarFw1ToFw2AlmListContainer">
+                                <div class="almListHdrCtr">
+                                    <span class="almListHdrSource almListHdrFw1"></span> <i class="fa fa-exchange"></i> <span class="almListHdrTarget almListHdrFw2"></span>
+                                </div>
+                                <ul id="almVisCgDividedSidebarFw1ToFw2AlmList" class="fa-ul"></ul>
+                            </div>
+                            <div id="almVisCgDividedSidebarFw2ToFw1AlmListContainer">
+                                <div class="almListHdrCtr">
+                                    <span class="almListHdrSource almListHdrFw2"></span> <i class="fa fa-exchange"></i> <span class="almListHdrTarget almListHdrFw1"></span>
+                                </div>
+                                <ul id="almVisCgDividedSidebarFw2ToFw1AlmList" class="fa-ul"></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cell auto" style="position: relative;">
+                        <div class="almCircleGraphMerged" id="alm-circle-graph-divided-wrapper">
+                            <!-- NOTE: If you change this SVG size, please take the setAlmVisDividedCgViewboxSize function into account!!!!-->
+                            <svg id="alignmentDividedCirclePack" width="400" height="400" viewBox="0 80 500 500"></svg>
+                        </div>
+                    </div>
+                    <div id="almVisCgDividedCompDetailsSidebar" class="cell medium-4 large-3 medium-cell-block-y hide">
+                        <h4 id="almVisCgDividedCompDetailsSbName"></h4>
+                        <p id="almVisCgDividedCompDetailsSbDesc"></p>
+                        <div id="almVisCgDividedCompDetailsSbNoAlmsCtr">
+                            <p><i class="fa fa-info-circle"></i> There are no associated alignments</p>
+                        </div>
+                        <div id="almVisCgDividedCompDetailsSbAlmsCtr">
+                            <span class="compRelAlignmentHdr">Associated Alignments</span>
+                            <ul id="almVisCgDividedCompDetailsSbAlmsList" class="fa-ul"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="almVisCgMergedContainer" class="grid-container full" style="display: none;">
+                <div id="almVisCgMergedNoData" class="grid-x grid-margin-x grid-padding-x text-center">
+                    <div class="cell medium-3"></div>
+                    <div class="cell medium-6">
+                        <div class="callout primary large cassUiCallout">
+                            <h5><i class="fa fa-exclamation-triangle"></i>  Merged Framework View Unavailable</h5>
+                            <p>There are no alignments between these two frameworks.</p>
+                            <p><a title="Separate Frameworks" onclick="divideAlignmentVisualizationCircleGraphs();">Separate</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div id="almVisCgMergedData" class="grid-x grid-margin-x grid-padding-x">
+                    <div id="almVisCgMergedSidebar" class="cell medium-4 large-3 medium-cell-block-y">
+                        <h3>
+                            <div class="grid-x">
+                                <div class="cell medium-9">Merged Frameworks</div>
+                                <div class="cell medium-1"><button id="mrgFwkLegendLink"><i class="fa fa-info-circle" aria-hidden="true" data-open="modal-legend-merged-cg"></i></button></div>
+                                <div class="cell medium-2 rightText">
+                                    <a title="Separate Frameworks" onclick="divideAlignmentVisualizationCircleGraphs();"><img src="img/separateAlm2.png" class="almToolIcon"/></a>
+                                </div>
+                            </div>
+                        </h3>
+                        <div id="mergFwkAlmSettingsCtr" class="grid-x">
+                            <div class="cell medium-3"><span >Hide Labels?</span></div>
+                            <div class="cell medium-2">
+                                <div class="switch tiny">
+                                    <input onchange="changeMergedLabelVisMode();" class="switch-input" id="mergFwkAlmShowLabel" type="checkbox">
+                                    <label class="switch-paddle" for="mergFwkAlmShowLabel">
+                                        <span class="switch-active" aria-hidden="true">Yes</span>
+                                        <span class="switch-inactive" aria-hidden="true">No</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="cell medium-1"></div>
+                            <div class="cell medium-4"><span >Hide Unaligned?</span></div>
+                            <div class="cell medium-2">
+                                <div class="switch tiny">
+                                    <input onchange="changeMergedAlignmentVisMode();" class="switch-input" id="mergFwkAlmShowUna" type="checkbox">
+                                    <label class="switch-paddle" for="mergFwkAlmShowUna">
+                                        <span class="switch-active" aria-hidden="true">Yes</span>
+                                        <span class="switch-inactive" aria-hidden="true">No</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="almVisCgMergedSidebarAlmListContainer">
+                            <div id="almVisCgMergedSidebarFw1ToFw2AlmListContainer">
+                                <div class="almListHdrCtr">
+                                    <span class="almListHdrSource almListHdrFw1"></span> <i class="fa fa-exchange"></i> <span class="almListHdrTarget almListHdrFw2"></span>
+                                </div>
+                                <ul id="almVisCgMergedSidebarFw1ToFw2AlmList" class="fa-ul"></ul>
+                            </div>
+                            <div id="almVisCgMergedSidebarFw2ToFw1AlmListContainer">
+                                <div class="almListHdrCtr">
+                                    <span class="almListHdrSource almListHdrFw2"></span> <i class="fa fa-exchange"></i> <span class="almListHdrTarget almListHdrFw1"></span>
+                                </div>
+                                <ul id="almVisCgMergedSidebarFw2ToFw1AlmList" class="fa-ul"></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cell auto" style="position: relative;">
+                        <div class="almCircleGraphMerged" id="alm-circle-graph-merged-wrapper">
+                            <svg id="alignmentMergedCirclePack" width="400" height="400" viewBox="-50 0 650 650"></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ALIGNMENT EDIT SCREEN -->
+        <div id="alignment-edit-screen" class="screen" style="display: none;">
+            <div id="alignmentScreenMainGridContainer" class="grid-container">
+                <div id="alignment-help" class="callout primary small" style="margin-top: 1em;" data-closable>
+                    <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <p class="lead text-center"><i class="fa fa-info-circle" aria-hidden="true"></i> To begin select an item in either column</p>
+                </div>
+                <div class="grid-x grid-margin-x grid-padding-x">
+                    <div id="alignment-left-column" class="cell auto alignment-fit-height">
+                        <div class="alignment-column-header">
+                            <h4><span id="frameworkAlignmentName1"></span></h4>
+                            <input id="frameworkAlignmentFwFilter1" onkeyup="filterAlignmentCompetencies('frameworkAlignmentFwFilter1','frameworkAlignmentFwList1');" class="" type="text" placeholder="Filter">
+                        </div>
+                        <div class="alignment-column-scroll">
+                            <ul class="fa-ul" id="frameworkAlignmentFwList1"></ul>
+                        </div>
+                    </div>
+                    <div id="alignment-center-column" class="cell small-4 medium-5 alignment-fit-height hide">
+                        <div class="alignment-column-header">
+                            <h4 class="text-center">Alignment</h4>
+                            <input id="frameworkAlignmentAlignFilter" onkeyup="filterAlignmentCards();" class="" type="text" placeholder="Filter">
+                        </div>
+                        <div id="alignment-matches-container" class="alignment-column-scroll">
+                            <div id="alignment-NewMatchCard" onclick="createNewAlignmentCard(null,true);" class="callout success text-center">
+                                <a><i class="fa fa-plus" aria-hidden="true"></i> New...</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="alignment-right-column" class="cell auto alignment-fit-height">
+                        <div class="alignment-column-header">
+                            <h4><span id="frameworkAlignmentName2"></span></h4>
+                            <input id="frameworkAlignmentFwFilter2" onkeyup="filterAlignmentCompetencies('frameworkAlignmentFwFilter2','frameworkAlignmentFwList2');" class="" type="text" placeholder="Filter">
+                        </div>
+                        <div class="alignment-column-scroll">
+                            <ul class="fa-ul" id="frameworkAlignmentFwList2"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--END CONTENTS-->
 
     <!-- MODAL WINDOWS -->

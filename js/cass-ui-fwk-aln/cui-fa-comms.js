@@ -21,9 +21,15 @@ function performInitIdentityAction(data) {
 }
 
 function initializeFrameworkAlignmentParameters(data) {
-    framework1Id = data.fw1Id;
-    framework2Id = data.fw2Id;
-    loadPageContents();
+    initAvailableFrameworks(
+        function() {
+            buildFrameworkDataForAlignments(data.fw1Id,data.fw2Id,true);
+        },
+        function(errMsg) {
+            debugMessage("alignment prep failed: " + errMsg);
+            showPageError("Alignment prep failed: " + errMsg);
+        }
+    );
 }
 
 //**************************************************************************************************
