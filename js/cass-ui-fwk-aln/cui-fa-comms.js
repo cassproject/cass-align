@@ -7,6 +7,7 @@
 
 const INIT_ALIGN_MESSAGE = "initAlign";
 const WAITING_MESSAGE = "waiting";
+const INIT_FWK_EXP_MESSAGE = "initFrameworkExplorer";
 
 const INIT_IDENTITY_ACTION = "initIdentity";
 const SET_FWK_ALIGN_PARMS_ACTION = "setFwkAlignParams";
@@ -49,6 +50,15 @@ function sendInitAlignMessage() {
         message: INIT_ALIGN_MESSAGE
     };
     debugMessage("Sending '" + INIT_ALIGN_MESSAGE + "' message:" + JSON.stringify(message));
+    parent.postMessage(message, queryParams.origin);
+}
+
+function sendInitFrameworkExplorerMessage(frameworkId) {
+    var message = {
+        message: INIT_FWK_EXP_MESSAGE,
+        frameworkId: frameworkId
+    };
+    debugMessage("Sending '" + INIT_FWK_EXP_MESSAGE + "' message:" + JSON.stringify(message));
     parent.postMessage(message, queryParams.origin);
 }
 
