@@ -219,16 +219,16 @@ function zoomDividedAlmCg(d) {
 
     transition.selectAll("text")
         .filter(function (d) {
-            return d.parent === focus || this.style.display === "inline";
+            return d.parent === focus || this.style.visibility === "visible";
         })
         .style("fill-opacity", function (d) {
             return d.parent === focus ? 1 : 0;
         })
         .on("start", function (d) {
-            if (d.parent === focus) this.style.display = "inline";
+            if (d.parent === focus) this.style.visibility = "visible";
         })
         .on("end", function (d) {
-            if (d.parent !== focus) this.style.display = "none";
+            if (d.parent !== focus) this.style.visibility = "hidden";
         });
 
     transition.on("end", function (d) {
@@ -386,22 +386,37 @@ function buildDividedAlignmentGraphCircles(error, root) {
 
     var text = almDividedCirclePackGraph.selectAll("text")
         .data(nodes)
-        .enter().append("text")
+        .enter()
+        .append("text")
         .attr("class", "label")
+        .attr("r", function(d) {
+            return d.r;
+        })
         .style("fill-opacity", function (d) {
             return d.parent === root ? 1 : 0;
         })
-        .style("display", function (d) {
-            return d.parent === root ? "inline" : "none";
+        .style("visibility", function (d) {
+            return d.parent === root ? "visible" : "hidden";
         })
         .text(function (d) {
             if (typeof getAlignmentDividedCgCircleText === 'function') {
-                return cleanCircleText(getAlignmentDividedCgCircleText(d), ALM_CIRCLE_TEXT_LIMIT_LNG);
+                return getAlignmentDividedCgCircleText(d);;
             }
             else return "UNDEFINED getAlignmentDividedCgCircleText";
-        });
+        })
+        .attr("name", function (d) {
+            if (typeof getAlignmentDividedCgCircleText === 'function') {
+                var circleText = getAlignmentDividedCgCircleText(d);
+                return circleText;
+            }
+            else return "UNDEFINED getAlignmentDividedCgCircleText";
+        })
+        .each(function(d) {
+            var text = d3.select(this);
+            getDisplayTitle(d, text);
+        });;
 
-    almDividedCgNode = almDividedCirclePackGraph.selectAll("circle,text");
+    almDividedCgNode = almDividedCirclePackGraph.selectAll("circle,text,wrap");
 
     almDividedSvg.style("background", almDividedFw1CgColor(-1))
         .on("click", function () {
@@ -484,16 +499,16 @@ function zoomMergedAlmCg(d) {
         });
     transition.selectAll("text")
         .filter(function (d) {
-            return d.parent === focus || this.style.display === "inline";
+            return d.parent === focus || this.style.visibility === "visible";
         })
         .style("fill-opacity", function (d) {
             return d.parent === focus ? 1 : 0;
         })
         .on("start", function (d) {
-            if (d.parent === focus) this.style.display = "inline";
+            if (d.parent === focus) this.style.visibility = "visible";
         })
         .on("end", function (d) {
-            if (d.parent !== focus) this.style.display = "none";
+            if (d.parent !== focus) this.style.visibility = "hidden";
         });
 }
 
@@ -507,7 +522,71 @@ function zoomMergedAlmCgTo(v) {
         return d.r * k;
     });
 }
-
+/******************************************************************
+ Build presentable array of words, first splice all words in title into separate string array elements, combine small words with smallest neighbor and return.
+ *******************************************************************/
+function getDisplayTitle(d, text) {
+    var text = text;
+    var cleanWords = text.text().replace(/-/g, " - ").replace(/\//g, " / ").replace(/ +/g," ");
+    var wordAttempt = cleanWords.split(/ (?=[A-Za-z-\/])/g);
+    var lastLength = 0;
+    while (wordAttempt.length != lastLength) {
+        var maxLength = 0;
+        lastLength = wordAttempt.length;
+        for (var i = 0; i < wordAttempt.length; i++)
+            maxLength = Math.max(wordAttempt[i].length, maxLength);
+        for (var i = 1; i < wordAttempt.length; i++)
+            if (wordAttempt[i].length <= 2 || wordAttempt[i - 1].length + wordAttempt[i].length < maxLength) {
+                wordAttempt[i - 1] = wordAttempt[i - 1] + " " + wordAttempt[i];
+                wordAttempt.splice(i, 1);
+            }
+    }
+    try {
+        if (wordAttempt.length > 4) {
+            wordAttempt.splice(4, wordAttempt.length - 4);
+            wordAttempt[wordAttempt.length-1] += "...";
+        }
+        return createDisplayTitleSpans(wordAttempt.reverse(), text, d);
+    }catch(ex){
+        console.error(ex);
+        throw ex;
+    }
+}
+/******************************************************************
+ Build tspan filled with svg text based on ourput display title
+ array.
+ *******************************************************************/
+function createDisplayTitleSpans(words, text, d) {
+    var word;
+    var line = [];
+    var lineNumber = 0;
+    var lineHeight = .9; // ems
+    var y = 0;
+    var dy = 0;
+    var textY = (words.length * lineHeight)/2;
+    var tspan = text.text(null)
+        .append("tspan")
+        .attr("x", 0)
+        .attr("dy", dy +"em")
+    while (word = words.pop()) {
+        line.push(word);
+        lineNumber++;
+        dy = lineHeight * lineNumber - textY;
+        tspan = text
+            .append("tspan")
+            .attr("x", 0)
+            .attr("y", y)
+            .attr("dy", dy + "em")
+            .text(word);
+    }
+}
+function truncCircleText(str,textLimit) {
+    return str;
+}
+function cleanCircleText(str,textLimit) {
+    var retStr = str;
+    return retStr;
+}
 function buildMergedAlignmentGraphCircles(error, root) {
 
     if (error) throw error;
@@ -573,27 +652,41 @@ function buildMergedAlignmentGraphCircles(error, root) {
 
     var text = almMergedCirclePackGraph.selectAll("text")
         .data(nodes)
-        .enter().append("text")
+        .enter()
+        .append("text")
         .attr("class", function (d) {
             if (typeof getMergedAlmCgLabelClass === 'function') {
                 return getMergedAlmCgLabelClass(d);
             }
             else return "label";
         })
+        .attr("r", function(d) {
+            return d.r;
+        })
         .style("fill-opacity", function (d) {
             return d.parent === root ? 1 : 0;
         })
-        .style("display", function (d) {
-            return d.parent === root ? "inline" : "none";
+        .style("visibility", function (d) {
+            return d.parent === root ? "visible" : "hidden";
         })
         .text(function (d) {
             if (typeof getMergedAlmCgCircleText === 'function') {
-                return cleanCircleText(getMergedAlmCgCircleText(d), ALM_CIRCLE_TEXT_LIMIT_LNG);
+                return getMergedAlmCgCircleText(d);
             }
             else return "UNDEFINED getMergedAlmCgCircleText";
-        });
+        })
+        .attr("name", function (d) {
+            if (typeof getMergedAlmCgCircleText === 'function') {
+                var circleText = getMergedAlmCgCircleText(d);
+                return circleText;
+            }
+            else return "UNDEFINED getFrameworkExpCgCircleText";
+        }).each(function(d) {
+            var text = d3.select(this);
+            getDisplayTitle(d, text);
+        });;
 
-    almMergedCgNode = almMergedCirclePackGraph.selectAll("circle,text");
+    almMergedCgNode = almMergedCirclePackGraph.selectAll("circle,text,wrap");
 
     almMergedSvg.style("background", almMergedCgColor(-1))
         .on("click", function () {
