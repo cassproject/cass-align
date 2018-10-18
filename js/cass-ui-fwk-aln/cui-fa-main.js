@@ -3207,16 +3207,16 @@ function generateFrameworkCompetencyData() {
 function handleCollapseFramework2ForAlignmentSuccess(frameworkId, fnpg) {
     debugMessage("Framework 2 collapsed:" + frameworkId);
     debugMessage(fnpg);
-    if (!frameworkCollapsedCorrectly(fnpg)) {
-        showPageError("Could not determine framework competencies (" + framework2Name + ").  Check framework permissions.");
-    }
-    else if (doesFrameworkHaveCircularDependency(fnpg)) {
-        showPageError("Framework (" + framework2Name + ") contains a circular dependency.  Cannot align.");
-    }
-    else {
+    // if (!frameworkCollapsedCorrectly(fnpg)) {
+    //     showPageError("Could not determine framework competencies (" + framework2Name + ").  Check framework permissions.");
+    // }
+    // else if (doesFrameworkHaveCircularDependency(fnpg)) {
+    //     showPageError("Framework (" + framework2Name + ") contains a circular dependency.  Cannot align.");
+    // }
+    // else {
         framework2PacketGraph = fnpg;
         generateFrameworkCompetencyData();
-    }
+    // }
 }
 
 function handleCollapseFramework2ForAlignmentFailure(err) {
@@ -3238,16 +3238,16 @@ function collapseFramework2ForAlignment() {
 function handleCollapseFramework1ForAlignmentSuccess(frameworkId, fnpg) {
     debugMessage("Framework 1 collapsed:" + frameworkId);
     debugMessage(fnpg);
-    if (!frameworkCollapsedCorrectly(fnpg)) {
-        showPageError("Could not determine framework competencies (" + framework1Name + ").  Check framework permissions.");
-    }
-    else if (doesFrameworkHaveCircularDependency(fnpg)) {
-        showPageError("Framework (" + framework1Name + ") contains a circular dependency.  Can not align.");
-    }
-    else {
+    // if (!frameworkCollapsedCorrectly(fnpg)) {
+    //     showPageError("Could not determine framework competencies (" + framework1Name + ").  Check framework permissions.");
+    // }
+    // else if (doesFrameworkHaveCircularDependency(fnpg)) {
+    //     showPageError("Framework (" + framework1Name + ") contains a circular dependency.  Can not align.");
+    // }
+    // else {
         framework1PacketGraph = fnpg;
         collapseFramework2ForAlignment();
-    }
+    // }
 }
 
 function handleCollapseFramework1ForAlignmentFailure(err) {
