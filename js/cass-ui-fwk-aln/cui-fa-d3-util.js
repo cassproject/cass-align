@@ -25,12 +25,12 @@ const ALM_MRG_EQ_FILT_ID = "equalToFilter";
 // Variables
 
 var almMergedSvg = d3.select(ALM_MRG_CIRCLE_PACK);
-var almMergedCgMargin = 5;
+var almMergedCgMargin = 0;
 var almMergedCgDiameter = +almMergedSvg.attr("width");
 var almMergedCirclePackGraph = almMergedSvg.append("g").attr("transform", "translate(" + almMergedCgDiameter / 2 + "," + almMergedCgDiameter / 2 + ")");
 
 var almDividedSvg = d3.select(ALM_DVD_CIRCLE_PACK);
-var almDividedCgMargin = 5;
+var almDividedCgMargin = 0;
 var almDividedCgDiameter = +almDividedSvg.attr("width");
 var almDividedCirclePackGraph = almDividedSvg.append("g").attr("transform", "translate(" + almDividedCgMargin / 2 + "," + almDividedCgMargin / 2 + ")");
 
