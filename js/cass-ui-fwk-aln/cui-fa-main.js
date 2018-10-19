@@ -1784,7 +1784,7 @@ function saveFrameworksForAlmCardAlignmentToServerFailure(err, almCardId) {
 function saveFrameworksToServerForAlmCardAlignment(almCardId) {
     numFrameworksToSave = frameworksToSave.length;
     numFrameworksSaved = 0;
-    if (frameworksToSave.length == 0) checkAllFrameworksSaved(almCardId);
+    if (frameworksToSave.length == 0) checkAllFrameworksSavedForAlmCardAlignment(almCardId);
     for (var i = 0; i < frameworksToSave.length; i++) {
         frameworksToSave[i].save(function () {
                 saveFrameworksForAlmCardAlignmentToServerSuccess(almCardId);
