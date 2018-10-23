@@ -7,6 +7,8 @@
 //**************************************************************************************************
 // Constants
 
+const MAX_FWK_SEARCH_SIZE = 10000;
+
 const CREATE_IMPLIED_RELATIONS = true;
 
 const ALLOW_MANY_TO_MANY_ALM_CARDS = false;
@@ -3424,7 +3426,7 @@ function fetchAvailableFrameworks() {
     showVisualViewMainContentsScreen();
     setFrameworkAlignmentNames("Loading...","Loading...",null,null);
     showPageAsBusy("Loading available frameworks...");
-    EcFramework.search(repo, null, handleFetchFrameworksFromRepositorySuccess, handleFetchFrameworksFromRepositoryFailure, {});
+    EcFramework.search(repo, null, handleFetchFrameworksFromRepositorySuccess, handleFetchFrameworksFromRepositoryFailure, {'size':MAX_FWK_SEARCH_SIZE});
 }
 
 function initAvailableFrameworks(success,failure) {
