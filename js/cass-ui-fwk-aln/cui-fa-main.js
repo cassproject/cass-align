@@ -645,7 +645,7 @@ function buildAutoAlignmentSuggestionsListLineItem(sugEca, sugIdx) {
         var sgGridDiv = $("<div/>");
         sgGridDiv.addClass("grid-x");
         var sgCbDiv = $("<div/>");
-        sgCbDiv.addClass("cell medium-1 centerText");
+        sgCbDiv.addClass("cell medium-1 text-center");
         var sgCbId = buildAutoAlignmentSuggestionSelectionCheckBoxId(sugIdx);
         var sgCbDivHtml = "<input onclick='updateAutoAlignmentSuggestionsSelectedCount();' id=\"" + sgCbId + "\" type=\"checkbox\" checked></input>";
         sgCbDiv.html(sgCbDivHtml);
@@ -656,7 +656,7 @@ function buildAutoAlignmentSuggestionsListLineItem(sugEca, sugIdx) {
         sgFw1Div.html(sgFw1DivHtml);
         sgGridDiv.append(sgFw1Div);
         var sgRelDiv = $("<div/>");
-        sgRelDiv.addClass("cell medium-1 centerText");
+        sgRelDiv.addClass("cell medium-1 text-center");
         var sgRelDivHtml = "<span class='fwkAlmAutoAlmRelText'>" + getAutoAlignmentSuggestionsListLineItemRelationImageHtml(sdd["relation"]) + "</span>";
         sgRelDiv.html(sgRelDivHtml);
         sgGridDiv.append(sgRelDiv);
