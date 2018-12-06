@@ -941,6 +941,7 @@ function setAlmVisDividedCgViewboxSize() {
         else if (maxComps >= FWK_ALM_VIS_CG_DIV_SMALL_OFFSET_MAX && (minComps * FWK_ALM_VIS_CG_DIV_SMALL_OFFSET_MIN_MUTLI < maxComps)) {
             vbSize = FWK_ALM_VIS_CG_DIV_SMALL_OFFSET_VIEWBOX;
         }
+        //else if ()  //TODO check for many alignments....it pushes the circles way down
     }
     $(ALM_DVD_CIRCLE_PACK).attr("viewBox", vbSize);
 }
@@ -1381,9 +1382,9 @@ function buildDividedAlmVisRelPathsForCad(avrpList, cad) {
             if (coordsSet && coordsSet.length > 0) {
                 for (var k = 0; k < coordsSet.length; k++) {
                     var avrpIdx = avrpList.length;
-                    debugMessage("avrpIdx: " + avrpIdx);
+                    //debugMessage("avrpIdx: " + avrpIdx);
                     var pathId = buildDividedAlmVisRelPathId(avrpIdx);
-                    debugMessage("pathId: " + pathId);
+                    //debugMessage("pathId: " + pathId);
                     if (reverseCoords) adh = buildAlignmentDisplayHelper(cad, cad.targetCpds[i].name, cad.sourceCpds[j].name);
                     else adh = buildAlignmentDisplayHelper(cad, cad.sourceCpds[i].name, cad.targetCpds[j].name);
                     avrpList.push(buildDividedAlmVisSvgPath(pathClass, pathArrowHead, coordsSet[k], pathId));
@@ -3216,8 +3217,8 @@ function handleCollapseFramework2ForAlignmentSuccess(frameworkId, fnpg) {
     //     showPageError("Framework (" + framework2Name + ") contains a circular dependency.  Cannot align.");
     // }
     // else {
-        framework2PacketGraph = fnpg;
-        generateFrameworkCompetencyData();
+    framework2PacketGraph = fnpg;
+    generateFrameworkCompetencyData();
     // }
 }
 
@@ -3247,8 +3248,8 @@ function handleCollapseFramework1ForAlignmentSuccess(frameworkId, fnpg) {
     //     showPageError("Framework (" + framework1Name + ") contains a circular dependency.  Can not align.");
     // }
     // else {
-        framework1PacketGraph = fnpg;
-        collapseFramework2ForAlignment();
+    framework1PacketGraph = fnpg;
+    collapseFramework2ForAlignment();
     // }
 }
 
@@ -3440,7 +3441,3 @@ function initAvailableFrameworks(success,failure) {
 //**************************************************************************************************
 
 setPageColorTheme();
-
-// function loadPageContents() {
-//     showPageError("");
-// }
