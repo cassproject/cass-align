@@ -223,7 +223,8 @@ function frameworkCollapsedCorrectly(fnpg) {
 
 function getFrameworkName(frameworkId) {
     var fw = frameworkIdFrameworkMap[frameworkId];
-    if (fw) return fw.name;
+    //if (fw) return fw.name;
+    if (fw) return fw.getName();
     else return "Framework not found";
 }
 
@@ -254,7 +255,7 @@ function getTargetFrameworkNameForCad(cad) {
 }
 
 function getFramework1CompetencyDescription(compId) {
-    if (compId == framework1Name) return framework1Full.description;
+    if (compId == framework1Name) return framework1Full.getDescription();
     if (framework1CompData.competencyPacketDataMap[compId]) {
         var cnp = framework1CompData.competencyPacketDataMap[compId].cassNodePacket;
         if (cnp) {
@@ -265,7 +266,7 @@ function getFramework1CompetencyDescription(compId) {
 }
 
 function getFramework2CompetencyDescription(compId) {
-    if (compId == framework2Name) return framework2Full.description;
+    if (compId == framework2Name) return framework2Full.getDescription();
     if (framework2CompData.competencyPacketDataMap[compId]) {
         var cnp = framework2CompData.competencyPacketDataMap[compId].cassNodePacket;
         if (cnp) {
@@ -815,7 +816,7 @@ function populateFrameworkAlignmentFrameworkDropdowns(ddId, startOnCurrent) {
         var fw = availableFrameworkList[i];
         var fwo = $("<option />");
         fwo.val(fw.shortId());
-        fwo.text(fw.name);
+        fwo.text(fw.getName());
         if (startOnCurrent) {
             if (fw.shortId() == framework1Id) {
                 fwo.attr("selected", "true");
@@ -1203,7 +1204,7 @@ function clearCompetencyCircleCoordsHelperMap() {
 
 function registerCompetencyCircleCoordsHelper(compId, transformedX, transformedY, transformedR) {
     if (compId && compId != FWK_ALM_VIS_CG_DIVIDED_CIR_ROOT_NAME && compId != framework1Name && compId != framework2Name) {
-        debugMessage("Registering cch:" + getLastPieceOfCassId(compId) + "|" + transformedX + "," + transformedY + "|" + transformedR);
+        //debugMessage("Registering cch:" + getLastPieceOfCassId(compId) + "|" + transformedX + "," + transformedY + "|" + transformedR);
         if (!compIdToAlmVisCchMap[compId]) compIdToAlmVisCchMap[compId] = [];
         var cch = new competencyCircleCoordsHelper(transformedX, transformedY, transformedR);
         compIdToAlmVisCchMap[compId].push(cch);
@@ -3093,8 +3094,8 @@ function buildRelevantFrameworkAlignmentData(processedAlignmentIds, fwRelationAr
             if (sourceCpd && targetCpd) {
                 if (!processedAlignmentIds.includes(fwRelationArray[i].shortId())) {
                     processedAlignmentIds.push(fwRelationArray[i].shortId());
-                    debugMessage("LTR Relevant alignment found: ");
-                    debugMessage(fwRelationArray[i]);
+                    //debugMessage("LTR Relevant alignment found: ");
+                    //debugMessage(fwRelationArray[i]);
                     relevantAlignmentRelationshipsLTR.push(fwRelationArray[i]);
                     relevantAlignmentRelationshipsMap[fwRelationArray[i].shortId()] = fwRelationArray[i];
                 }
@@ -3105,8 +3106,8 @@ function buildRelevantFrameworkAlignmentData(processedAlignmentIds, fwRelationAr
                 if (sourceCpd && targetCpd) {
                     if (!processedAlignmentIds.includes(fwRelationArray[i].shortId())) {
                         processedAlignmentIds.push(fwRelationArray[i].shortId());
-                        debugMessage("RTL Relevant alignment found: ");
-                        debugMessage(fwRelationArray[i]);
+                        //debugMessage("RTL Relevant alignment found: ");
+                        //debugMessage(fwRelationArray[i]);
                         relevantAlignmentRelationshipsRTL.push(fwRelationArray[i]);
                         relevantAlignmentRelationshipsMap[fwRelationArray[i].shortId()] = fwRelationArray[i];
                     }
@@ -3376,8 +3377,8 @@ function buildFrameworkDataForAlignments(fw1Id,fw2Id,forceDataRefresh) {
 
 function createSortedAvailableFrameworkList(ownedFrameworkList,unownedFrameworkList) {
     availableFrameworkList = [];
-    ownedFrameworkList.sort(function (a, b) {return a.name.localeCompare(b.name);});
-    unownedFrameworkList.sort(function (a, b) {return a.name.localeCompare(b.name);});
+    ownedFrameworkList.sort(function (a, b) {return a.getName().localeCompare(b.getName());});
+    unownedFrameworkList.sort(function (a, b) {return a.getName().localeCompare(b.getName());});
     for (var i=0;i<ownedFrameworkList.length;i++) {
         availableFrameworkList.push(ownedFrameworkList[i]);
     }
@@ -3392,16 +3393,22 @@ function buildFrameworkLists(arrayOfEcFrameworks) {
     frameworkIdFrameworkMap = {};
     for (var i=0;i<arrayOfEcFrameworks.length;i++) {
         var cecf = arrayOfEcFrameworks[i];
-        if (cecf.name && cecf.name.trim().length > 0) {
-            frameworkIdFrameworkMap[cecf.shortId()] = cecf;
-            if (!frameworkNameFrameworkMap[cecf.name.trim()]) {
-                frameworkNameFrameworkMap[cecf.name.trim()] = [];
+        try {
+            if (cecf && cecf.getName() && cecf.getName().trim().length > 0) {
+                frameworkIdFrameworkMap[cecf.shortId()] = cecf;
+                if (!frameworkNameFrameworkMap[cecf.getName().trim()]) {
+                    frameworkNameFrameworkMap[cecf.getName().trim()] = [];
+                }
+                frameworkNameFrameworkMap[cecf.getName().trim()].push(cecf);
+                if (cecf.hasOwner(loggedInPk)) {
+                    ownedFrameworkList.push(cecf);
+                }
+                else unownedFrameworkList.push(cecf);
             }
-            frameworkNameFrameworkMap[cecf.name.trim()].push(cecf);
-            if (cecf.hasOwner(loggedInPk)) {
-                ownedFrameworkList.push(cecf);
-            }
-            else unownedFrameworkList.push(cecf);
+        }
+        catch (ex) {
+            debugMessage("buildFrameworkLists exception: " + ex);
+            debugMessage(cecf);
         }
     }
     if ((ownedFrameworkList.length + unownedFrameworkList.length) <= 0) {
