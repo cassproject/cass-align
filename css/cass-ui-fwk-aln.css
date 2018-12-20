@@ -39,7 +39,7 @@ ul.no-bullets li {
 }
 
 input:checked~.switch-paddle {
-    background: #333;
+    background: #662a36;
 }
 
 .is-submenu-item hr {
@@ -138,14 +138,14 @@ input:checked~.switch-paddle {
 }
 
 body.theme-burgendy #section-sub-menu #frameworkContentsSearchContainer #frameworkExpHeader .button {
-    background-color: #662a36;
+    background-color: #707070;
 }
 body.theme-burgendy #section-sub-menu #frameworkContentsSearchContainer .button:hover {
     background-color: #662a36;
 }
 
 body.theme-burgendy  h3, h2 {
-    color: #662a36;
+    color: #0a0a0a;
 }
 body.theme-burgendy .gpsi {
     color: #000;
@@ -655,25 +655,37 @@ select.alignment-match-relationship {}
     fill: rgba(7, 140, 130, 1);
 }
 
-.almCircleGraphDivided .label,
-.almCircleGraphMerged .label {
+.almCircleGraphDivided .label {
     fill: #fff;
-    font-size: 12px;
+    font-size: 8px;
+    font-weight: 500 !important;
     text-anchor: middle;
     paint-order: stroke;
     stroke: rgb(0, 0, 0);
-    stroke-width: 1px;
+    stroke-width: .5px;
+    stroke-linecap: butt;
+    stroke-linejoin: round;
+}
+.almCircleGraphMerged .label {
+    fill: #fff;
+    font-size: 8px;
+    font-weight: 500 !important;
+    text-anchor: middle;
+    paint-order: stroke;
+    stroke: rgb(0, 0, 0);
+    stroke-width: .5px;
     stroke-linecap: butt;
     stroke-linejoin: round;
 }
 
 .almCircleGraphMerged .unaLabel  {
     fill: #fff;
-    font-size: .3rem;
+    font-size: 8px;
+    font-weight: 500;
     text-anchor: middle;
     paint-order: stroke;
     stroke: rgb(0, 0, 0);
-    stroke-width: 1px;
+    stroke-width: .5px;
     stroke-linecap: butt;
     stroke-linejoin: round;
 }
@@ -702,6 +714,7 @@ select.alignment-match-relationship {}
 .almCircleGraphMerged .node-fw2-eq.child {
     fill: rgba(244, 160, 130, 1);
     cursor: pointer;
+    /*filter: url(#drop-shadow);*/
 }
 
 .almCircleGraphMerged .node-fw1-brd,
@@ -711,6 +724,7 @@ select.alignment-match-relationship {}
 .almCircleGraphMerged .node-fw2-brd.child,
 .almCircleGraphMerged .node-fw2-des.child,
 .almCircleGraphMerged .node-fw2-req.child {
+    /*filter: url(#drop-shadow);*/
     fill: rgba(179,106,121,1);
     cursor: pointer;
 }
@@ -722,6 +736,7 @@ select.alignment-match-relationship {}
 .almCircleGraphMerged .node-fw1-brd.child,
 .almCircleGraphMerged .node-fw1-des.child,
 .almCircleGraphMerged .node-fw1-req.child {
+    /*filter: url(#drop-shadow);*/
     fill: rgba(235,173,135,1);
     cursor: pointer;
 }
@@ -730,6 +745,7 @@ select.alignment-match-relationship {}
 .almCircleGraphMerged .node-fw2-rel,
 .almCircleGraphMerged .node-fw1-rel.child,
 .almCircleGraphMerged .node-fw2-rel.child {
+    /*filter: url(#drop-shadow);*/
     cursor: pointer;
     /*fill: rgba(182, 139, 232, .75);*/
 }
@@ -862,8 +878,8 @@ select.alignment-match-relationship {}
 
 #mergFwkAlmSettingsCtr {
     font-size:.9rem;
-    color:#8E8E8E;
-    text-align:right;
+    color:#0a0a0a;
+    text-align:left;
 }
 
 #mergFwkAlmShowUnaCtr .switch {
@@ -926,6 +942,9 @@ select.alignment-match-relationship {}
 #almVisCgMergedSidebarFw1ToFw2AlmList > li,
 #almVisCgMergedSidebarFw2ToFw1AlmList > li {
     margin-bottom: .6rem;
+}
+#almVisCgMergedSidebarFw1ToFw2AlmList  {
+    margin-left: 12px !important
 }
 
 .almCgSbComp,
