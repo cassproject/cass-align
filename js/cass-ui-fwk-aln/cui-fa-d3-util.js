@@ -113,6 +113,39 @@ function cleanCircleText(str,textLimit) {
     return retStr;
 }
 
+/******************************************************************
+ Build presentable array of words, first splice all words in title 
+ into separate string array elements, combine small words with
+smallest neighbor and return.
+ *******************************************************************/
+function getDisplayTitle(d, text) {
+    var text = text;
+    var cleanWords = text.text().replace(/-/g, " - ").replace(/\//g, " / ").replace(/ +/g," ");
+    var wordAttempt = cleanWords.split(/ (?=[A-Za-z-\/])/g);
+    var lastLength = 0;
+    while (wordAttempt.length != lastLength) {
+        var maxLength = 0;
+        lastLength = wordAttempt.length;
+        for (var i = 0; i < wordAttempt.length; i++)
+            maxLength = Math.max(wordAttempt[i].length, maxLength);
+        for (var i = 1; i < wordAttempt.length; i++)
+            if (wordAttempt[i].length <= 2 || wordAttempt[i - 1].length + wordAttempt[i].length < maxLength) {
+                wordAttempt[i - 1] = wordAttempt[i - 1] + " " + wordAttempt[i];
+                wordAttempt.splice(i, 1);
+            }
+    }
+    try {
+        if (wordAttempt.length > 4) {
+            wordAttempt.splice(4, wordAttempt.length - 4);
+            wordAttempt[wordAttempt.length-1] += "...";
+        }
+        return createDisplayTitleSpans(wordAttempt.reverse(), text, d);
+    }catch(ex){
+        console.error(ex);
+        throw ex;
+    }
+}
+
 //**************************************************************************************************
 // Graph Functions (For Divided Alignment Circles)
 //**************************************************************************************************
@@ -161,6 +194,36 @@ function addDividedAlignmentCgArrowheadDefs() {
     addDividedAlignmentCgArrowheadDefMarkerPath("faded-desRelAH", "relArrowHeadFaded desRelArrowHead");
     addDividedAlignmentCgArrowheadDefMarkerPath("faded-narRelAH", "relArrowHeadFaded narRelArrowHead");
     addDividedAlignmentCgArrowheadDefMarkerPath("faded-reqRelH", "relArrowHeadFaded reqRelArrowHead");
+}
+
+/* not being used yet, saving for adding on later */
+function addDividedAlignmentCgFilterDropShadow() {
+    var svg2 = d3.select(ALM_DVD_CIRCLE_PACK);
+    var filter = svg2.append("defs:filter")
+        .attr("id", "drop-shadow")
+        .attr("height", "120%")
+        .attr("x", "-10%")
+        .attr("y", "-10%")
+    filter.append("feGaussianBlur")
+        .attr("in", "SourceAlpha")
+        .attr("stdDeviation", 1)
+        .attr("result", "blur");
+    filter.append("feOffset")
+        .attr("in", "blur")
+        .attr("dx", .5)
+        .attr("dy", .5)
+        .attr("result", "offsetBlur");
+    var feComponentTransfer = filter.append("feComponentTransfer")
+    .attr("in", "offsetBlur")
+    .attr("result", "linearSlope");
+    feComponentTransfer.append("feFuncA")
+        .attr("type", "linear")
+        .attr("slope", "0.6");
+    var feMerge = filter.append("feMerge");
+    feMerge.append("feMergeNode")
+        .attr("in", "linearSlope")
+    feMerge.append("feMergeNode")
+        .attr("in", "SourceGraphic");
 }
 
 function moveDividedCircleSvgTextToBottomOfSvgGroup() {
@@ -352,7 +415,8 @@ function buildDividedAlignmentGraphCircles(error, root) {
     var nodes = almDividedCgPack(root).descendants();
     registerAlmVisDividedCgRootNodes(nodes);
     addDividedAlignmentCgArrowheadDefs();
-
+    //addDividedAlignmentCgFilterDropShadow();
+      
     almDividedCgCircle = almDividedCirclePackGraph.selectAll("circle")
         .data(nodes)
         .enter().append("circle")
@@ -374,16 +438,7 @@ function buildDividedAlignmentGraphCircles(error, root) {
             else(debugMessage("Alm Circle click: d.data is null"));
             d3.event.stopPropagation();
         });
-
-    /*****************************************************
-     testing adding a rectangle svg behind text
-
-     var rect = almDividedCirclePackGraph.selectAll("rect")
-     .data(nodes)
-     .enter().append("rect")
-     .attr("class", "label-background");
-     ****************************************************/
-
+ 
     var text = almDividedCirclePackGraph.selectAll("text")
         .data(nodes)
         .enter()
@@ -458,6 +513,41 @@ function addMergedAlignmentCgRelatedGradient() {
         .attr("style", "stop-color:" + ALM_MRG_REL_TO_GRDT_STOP + ";stop-opacity:1");
 }
 
+/* not being used yet, saving for later*/
+function addMergedAlignmentCgShadowFilter() {
+        
+    /************************************
+     drop shadow filter details
+     needed here to apply to expCgCircl
+     ************************************/
+    var svg2 = d3.select(ALM_MRG_CIRCLE_PACK);
+    var filter = svg2.append("defs:filter")
+        .attr("id", "drop-shadow")
+        .attr("height", "120%")
+        .attr("x", "-10%")
+        .attr("y", "-10%")
+    filter.append("feGaussianBlur")
+        .attr("in", "SourceAlpha")
+        .attr("stdDeviation", 1)
+        .attr("result", "blur");
+    filter.append("feOffset")
+        .attr("in", "blur")
+        .attr("dx", .5)
+        .attr("dy", .5)
+        .attr("result", "offsetBlur");
+    var feComponentTransfer = filter.append("feComponentTransfer")
+    .attr("in", "offsetBlur")
+    .attr("result", "linearSlope");
+    feComponentTransfer.append("feFuncA")
+        .attr("type", "linear")
+        .attr("slope", "0.6");
+    var feMerge = filter.append("feMerge");
+    feMerge.append("feMergeNode")
+        .attr("in", "linearSlope")
+    feMerge.append("feMergeNode")
+        .attr("in", "SourceGraphic");
+}
+
 /************************************************
  Is equal to
  Should make a filter which ads essentially a
@@ -474,9 +564,7 @@ function addMergedAlignmentCgEqualFilter() {
         .attr("dx", 1)
         .attr("dy", 1)
         .attr("result", "offsetBlur");
-
     var feMerge = filter.append("feMerge");
-
     feMerge.append("feMergeNode")
         .attr("in", "offsetBlur")
     feMerge.append("feMergeNode")
@@ -522,8 +610,11 @@ function zoomMergedAlmCgTo(v) {
         return d.r * k;
     });
 }
+
 /******************************************************************
- Build presentable array of words, first splice all words in title into separate string array elements, combine small words with smallest neighbor and return.
+ Build presentable array of words, first splice all words 
+ in title into separate string array elements, combine 
+ small words with smallest neighbor and return.
  *******************************************************************/
 function getDisplayTitle(d, text) {
     var text = text;
@@ -552,6 +643,7 @@ function getDisplayTitle(d, text) {
         throw ex;
     }
 }
+
 /******************************************************************
  Build tspan filled with svg text based on ourput display title
  array.
@@ -604,6 +696,8 @@ function buildMergedAlignmentGraphCircles(error, root) {
 
     addMergedAlignmentCgRelatedGradient();
     addMergedAlignmentCgEqualFilter();
+    //addMergedAlignmentCgShadowFilter();
+
 
     almMergedCgCircle = almMergedCirclePackGraph.selectAll("circle")
         .data(nodes)
