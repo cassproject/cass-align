@@ -884,6 +884,11 @@ function sortAndSeparateAdhList(fullAdhList, fw1AdhList, fw2AdhList) {
 
 function mergeAlignmentVisualizationCircleGraphs() {
     currentAlmVisCgView = "merged";
+    if (framework1Relations != null && framework2Relations != null)
+        if (framework1Relations.length+framework2Relations.length > 30) {
+            $(FWK_ALM_MRG_LABEL_SWITCH).prop("checked", true);
+            currentMergedCgHideLabels=true;
+        }
     $(FWK_ALM_VIS_CG_DIVIDED_CTR).fadeOut('fast', function () {
         $(FWK_ALM_VIS_CG_MERGED_CTR).fadeIn('fast', function () {
             buildMergedAlignmentVisualizationCircleGraph();
