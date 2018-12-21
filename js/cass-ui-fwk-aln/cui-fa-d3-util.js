@@ -15,8 +15,8 @@ const ALM_DVD_CIRCLE_PACK_PADDING = 10;
 
 const ALM_CIRCLE_TEXT_LIMIT_LNG = 35;
 
-const ALM_MRG_REL_TO_GRDT_START = "rgb(151,83,95,1)";
-const ALM_MRG_REL_TO_GRDT_STOP = "rgb(219,143,98,1)";
+const ALM_MRG_REL_TO_GRDT_START = "rgb(151,83,95)";
+const ALM_MRG_REL_TO_GRDT_STOP = "rgb(219,143,98)";
 const ALM_MRG_REL_GRDT_ID = "relatedToGradientFill";
 const ALM_MRG_EQ_FILT_ID = "equalToFilter";
 
