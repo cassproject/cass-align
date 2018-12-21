@@ -1,3 +1,108 @@
+@font-face {
+    font-family: 'oswaldbold';
+    src: url('../fonts/Oswald/oswald-bold.woff2') format('woff2'),
+         url('../fonts/Oswald/oswald-bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+ 
+@font-face {
+    font-family: 'oswaldextralight';
+    src: url('../fonts/Oswald/oswald-extralight.woff2') format('woff2'),
+         url('../fonts/Oswald/oswald-extralight.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'oswaldlight';
+    src: url('../fonts/Oswald/oswald-light.woff2') format('woff2'),
+         url('../fonts/Oswald/oswald-light.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'oswaldmedium';
+    src: url('../fonts/Oswald/oswald-medium.woff2') format('woff2'),
+         url('../fonts/Oswald/oswald-medium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'oswaldregular';
+    src: url('../fonts/Oswald/oswald-regular.woff2') format('woff2'),
+         url('../fonts/Oswald/oswald-regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'oswaldsemibold';
+    src: url('../fonts/Oswald/oswald-semibold.woff2') format('woff2'),
+         url('../fonts/Oswald/oswald-semibold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+@font-face {
+    font-family: 'assistantbold';
+    src: url('../fonts/Assistant/assistant-bold.woff2') format('woff2'),
+         url('../fonts/Assistant/assistant-bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'assistantextrabold';
+    src: url('../fonts/Assistant/assistant-extrabold.woff2') format('woff2'),
+         url('../fonts/Assistant/assistant-extrabold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'assistantextralight';
+    src: url('../fonts/Assistant/assistant-extralight.woff2') format('woff2'),
+         url('../fonts/Assistant/assistant-extralight.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'assistantlight';
+    src: url('../fonts/Assistant/assistant-light.woff2') format('woff2'),
+         url('../fonts/Assistant/assistant-light.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'assistantregular';
+    src: url('../fonts/Assistant/assistant-regular.woff2') format('woff2'),
+         url('../fonts/Assistant/assistant-regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'assistantsemibold';
+    src: url('../fonts/Assistant/assistant-semibold.woff2') format('woff2'),
+         url('../fonts/Assistant/assistant-semibold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 html,
 body {
     /* Dynamically resize for large screens */
@@ -5,10 +110,15 @@ body {
     /* Scale background to fit the screen */
     min-height: 100%;
     min-width: 100%;
+    --main-body-font: 'assistantregular';
+    --main-header-font: 'oswaldregular';
+    font-family: var(--main-body-font);
 }
 
 /* ---- UTILITY ---- */
-
+h1, h2, h3, h4 {
+    font-family: var(--main-header-font) !important;
+}
 tspan{
     pointer-events: none;
 }
@@ -81,6 +191,7 @@ input:checked~.switch-paddle {
 #cassUiMainBusyText {
     font-size: 2rem;
     color: #137499;
+    font-family: var(--main-header-font);
 }
 
 .cassUiError {
@@ -657,8 +768,8 @@ select.alignment-match-relationship {}
 
 .almCircleGraphDivided .label {
     fill: #fff;
-    font-size: 8px;
-    font-weight: 500 !important;
+    font-size: 8px !important;
+    font-weight: 600 !important;
     text-anchor: middle;
     paint-order: stroke;
     stroke: rgb(0, 0, 0);
@@ -669,11 +780,11 @@ select.alignment-match-relationship {}
 .almCircleGraphMerged .label {
     fill: #fff;
     font-size: 8px;
-    font-weight: 500 !important;
+    font-weight: 600 !important;
     text-anchor: middle;
-    paint-order: stroke;
-    stroke: rgb(0, 0, 0);
     stroke-width: .5px;
+    stroke: rgb(0, 0, 0);
+    paint-order: stroke;
     stroke-linecap: butt;
     stroke-linejoin: round;
 }
@@ -681,11 +792,11 @@ select.alignment-match-relationship {}
 .almCircleGraphMerged .unaLabel  {
     fill: #fff;
     font-size: 8px;
-    font-weight: 500;
+    font-weight: 600;
+    stroke-width: .5px;
+    stroke: rgb(0, 0, 0);
     text-anchor: middle;
     paint-order: stroke;
-    stroke: rgb(0, 0, 0);
-    stroke-width: .5px;
     stroke-linecap: butt;
     stroke-linejoin: round;
 }
@@ -895,6 +1006,7 @@ select.alignment-match-relationship {}
 #frameworkHeaderAlignmentName1,
 #frameworkHeaderAlignmentName2 {
     cursor:pointer;
+    font-family: var(--main-header-font) !important;
 }
 
 #fwkAlmAutoAlmResultsList {
