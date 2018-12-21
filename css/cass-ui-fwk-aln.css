@@ -1060,3 +1060,8 @@ li:not(:last-child) .fwkAlmAutoAlmRelImg {
 .removeAlignmentComp {
     color: #BA0903;
 }
+
+
+#modal-legend-merged-cg img {
+    max-height: 48px;
+}
