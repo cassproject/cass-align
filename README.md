@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/cassproject/cass-align.svg?branch=master)](https://travis-ci.org/cassproject/cass-align)
 # cass-align
-Competency and Skills Service -- Alignment
+Competency and Skills Service -- Alignment Tool
 
 Align CASS competencies with other competencies.
 
@@ -12,7 +12,7 @@ Align CASS competencies with other competencies.
  * Unbranded and open source - Carries no branding information, allowing you to use it easily and without concern.
 
 # Try it out
-cass-align is available for use in default installations as part of the Framework Viewer.
+cass-align is available for use in default installations as part of the Framework Explorer.
 
 # Integration
 Integrate the cass-align into your website by nesting it into an iframe on your website.
