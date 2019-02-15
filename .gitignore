@@ -7,3 +7,5 @@ build\.log
 img/\.DS_Store
 
 \.DS_Store
+
+pom\.xml\.versionsBackup
