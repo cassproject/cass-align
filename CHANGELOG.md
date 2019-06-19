@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.2.11](https://github.com/cassproject/cass-align/tree/1.2.11) (2019-06-12)
+[Full Changelog](https://github.com/cassproject/cass-align/compare/1.2.10...1.2.11)
+
+## [1.2.10](https://github.com/cassproject/cass-align/tree/1.2.10) (2019-06-10)
+[Full Changelog](https://github.com/cassproject/cass-align/compare/1.2.9...1.2.10)
+
 ## [1.2.9](https://github.com/cassproject/cass-align/tree/1.2.9) (2019-05-17)
 [Full Changelog](https://github.com/cassproject/cass-align/compare/1.2.8...1.2.9)
 
